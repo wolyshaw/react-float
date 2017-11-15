@@ -1,0 +1,45 @@
+{
+  "name": "react-float",
+  "author": {
+    "name": "wolyshaw",
+    "email": "shaw@xwlong.com",
+    "url": "https://xwlong.com"
+  },
+  "homepage": "https://github.com/wolyshaw/react-float",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolyshaw/react-float"
+  },
+  "bugs": {
+    "url": "https://github.com/wolyshaw/react-float/issues",
+    "email": "shaw@xwlong.com"
+  },
+  "main": "dist/index.js",
+  "license": "ISC",
+  "version": "1.0.0",
+  "keywords": [
+    "react",
+    "popup",
+    "module"
+  ],
+  "description": "The bomb window and side bar control for react",
+  "scripts": {
+    "dev": "webpack --config ./webpack.config.dev.js --color && node server.js",
+    "build": "webpack --color"
+  },
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "compression": "^1.7.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0"
+  }
+}
