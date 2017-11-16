@@ -3,11 +3,9 @@ const path = require('path')
 const CleanPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: {
-    index: './src/index.js'
-  },
+  entry: ['./src/index.js'],
   output: {
-    filename: '[name].js',
+    filename: 'index.js',
     path: path.resolve('./dist'),
     publicPath: '/',
     libraryTarget: 'umd'
@@ -21,14 +19,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader?presets[]=es2015&presets[]=react'
+        loader: 'babel-loader?presets[]=env&presets[]=react'
       }
     ]
-  },
-  plugins: [
-    new CleanPlugin(['dist'], {
-      root: path.join(__dirname),
-      verbose: true
-    })
-  ]
+  }
+  // ,
+  // plugins: [
+  //   new CleanPlugin(['dist'], {
+  //     root: path.join(__dirname),
+  //     verbose: true
+  //   })
+  // ]
 }
