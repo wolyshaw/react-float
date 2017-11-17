@@ -4,7 +4,7 @@ import Wraper from './Wraper'
 
 export default class float {
   constructor(option, Store) {
-    let {name, props, component, parentSelect, className} = option
+    let { name, props, component, parentSelect, className } = option
     this.name = name
     this.props = props
     this.Component = component
@@ -20,7 +20,7 @@ export default class float {
     let initProps = { close: this.close.bind(this), remove: this.remove.bind(this), className }
     render(
       <Wraper {...initProps}>
-        { Component ? <Component {...props} {...initProps}/> : <FloatComponent {...props} {...initProps}/> }
+        {Component ? <Component {...props} {...initProps} /> : <FloatComponent {...props} {...initProps} />}
       </Wraper>,
       this.warper
     )
