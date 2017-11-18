@@ -16,7 +16,7 @@
   },
   "main": "dist/index.js",
   "license": "ISC",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "react",
     "popup",
@@ -24,17 +24,14 @@
   ],
   "description": "The bomb window and side bar control for react",
   "scripts": {
-    "build": "webpack --color"
+    "build": "./node_modules/.bin/babel src --out-dir dist"
   },
   "dependencies": {
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.17"
+    "babel-preset-react": "^6.24.1"
   }
 }
