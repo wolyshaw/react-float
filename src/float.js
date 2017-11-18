@@ -4,13 +4,15 @@ import Wraper from './Wraper'
 
 export default class float {
   constructor(option, Store) {
-    let { name, props, component, parentSelect, className } = option
+    let { name, props, component, parentSelect, className, mask, maskClose } = option
     this.name = name
     this.props = props
     this.Component = component
     this.parentSelect = parentSelect
-    this.className = className
+    this.className = className || 'float-wraper'
     this.Store = Store
+    this.mask = mask || true
+    this.maskClose = maskClose || true
     this.warper = document.createElement('div')
     this.FloatComponent = Store.getComponentByName(name)
   }
@@ -18,9 +20,10 @@ export default class float {
   create() {
     let { FloatComponent, props, Component, className } = this
     let initProps = { close: this.close.bind(this), remove: this.remove.bind(this), className }
+    let newProps = Object.assign({}, initProps, props)
     render(
-      <Wraper {...initProps}>
-        {Component ? <Component {...props} {...initProps} /> : <FloatComponent {...props} {...initProps} />}
+      <Wraper {...newProps} mask={ this.mask } maskClose={ this.maskClose }>
+        {Component ? <Component {...newProps} /> : <FloatComponent {...newProps} />}
       </Wraper>,
       this.warper
     )
