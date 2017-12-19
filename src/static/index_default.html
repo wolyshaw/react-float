@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-float</title>
+</head>
+<body>
+  <div id="appone"></div>
+  <div id="popup"></div>
+  <div id="apptwo"></div>
+  <script src="https://cdn.bootcss.com/react/16.1.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-dom/16.1.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/babel-core/5.8.38/browser.min.js"></script>
+  <!-- <script src="../dist/index.js"></script>
+  <script type="text/babel">
+    const PopupOne = props => {
+      return (
+        <div>
+          测试弹窗组件<br/>
+          <span onClick={props.close}>组件内部关闭</span><br/>
+          <span onClick={props.remove}>组件内部移除</span>
+        </div>
+      )
+    }
+
+    const popupList = {
+      popupOne: PopupOne
+    }
+
+    const Store = new store(popupList)
+
+    const openPopup = openFloat(Store)
+    const closePopup = closeFloat(Store)
+    const removePopup = removeFloat(Store)
+
+    const Appone = props => {
+      let option = {
+        name: 'popupOne',
+        props: {data: 'test data'},
+        parentSelect: '#popup',
+        className: 'test'
+      }
+      return (
+        <div>
+          <h2>预先定义组件创建弹窗</h2>
+          <p>根据预先定义好的组件进行操作</p>
+          <input type="button" value="打开弹窗1" onClick={() => openPopup(option)}/>
+          <input type="button" value="关闭弹窗1" onClick={() => closePopup('popupOne')}/>
+          <input type="button" value="移除弹窗1" onClick={() => removePopup('popupOne')}/>
+        </div>
+      )
+    }
+
+    ReactDOM.render(<Appone/>, document.getElementById('appone'))
+
+    const Apptwo = props => {
+      return (
+        <div>
+          <h2>不预先定义组件创建弹窗</h2>
+          <p>全局都可以自由操作弹窗，调用时传入组件</p>
+          <input type="button" value="打开弹窗1" onClick={() => openFloat()({name: 'testComponent', component: PopupOne})}/>
+          <input type="button" value="关闭弹窗1" onClick={() => closeFloat()('testComponent')}/>
+          <input type="button" value="移除弹窗1" onClick={() => removeFloat()('testComponent')}/>
+        </div>
+      )
+    }
+
+    ReactDOM.render(<Apptwo/>, document.getElementById('apptwo'))
+  </script> -->
+</body>
+</html>
