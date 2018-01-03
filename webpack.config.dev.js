@@ -52,10 +52,10 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // new HtmlWebpackPlugin({
-    //   template: path.join(__dirname, 'src', 'static', 'index_default.html'),
-    //   title: 'react-float'
-    // }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src', 'static', 'index_default.html'),
+      title: 'react-float'
+    }),
     new ExtractTextPlugin('static/react-float.css')
   ]
 }

@@ -23,8 +23,7 @@ const Appone = props => {
   let option = {
     name: 'popupOne',
     props: {data: 'test data'},
-    parentSelect: '#popup',
-    className: 'test'
+    floatType: 'panel'
   }
   return (
     <div>
