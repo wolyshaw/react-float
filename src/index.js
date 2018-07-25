@@ -1,5 +1,6 @@
-import store from './store'
-import float from './float'
-import { openFloat, closeFloat, removeFloat } from './operation'
+import Float from './Float'
+export Popup from './Popup'
+export Panel from './Panel'
+export withFloat from './withFloat'
 
-export { store, float, openFloat, closeFloat, removeFloat }
+export default Float

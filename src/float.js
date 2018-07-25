@@ -1,54 +1,66 @@
-import React from 'react'
-import { render, unmountComponentAtNode } from 'react-dom'
-import Wraper from './Wraper'
-import styles from './static/float.less'
+import React, { Component } from 'react'
+import propTypes from 'prop-types'
+import context from './context'
 
-export default class float {
-  constructor(option, Store) {
-    let { name, props, component, parentSelect, className, mask, maskClose, spanStyle, floatType } = option
-    this.name = name
-    this.Store = Store
-    this.props = props || {}
-    this.mask = mask || true
-    this.Component = component
-    this.spanStyle = spanStyle || {}
-    this.maskClose = maskClose || true
-    this.floatType = styles[floatType] || styles['popup']
-    this.className = className || styles.wraper
-    this.warper = document.createElement('div')
-    this.parentSelect = parentSelect || document.body
-    this.FloatComponent = Store.getComponentByName(name)
+const { Provider } = context
+
+export default class Floats extends Component {
+
+  static propTypes = {
+    children: propTypes.any
   }
 
-  create() {
-    let { FloatComponent, props, Component, className } = this
-    let initProps = { close: this.close.bind(this), remove: this.remove.bind(this), className }
-    let newProps = Object.assign({}, initProps, props)
-    this.warper.classList.add(this.floatType)
-    render(
-      <Wraper {...newProps} mask={ this.mask } maskClose={ this.maskClose } spanStyle={ this.spanStyle }>
-        {Component ? <Component {...newProps} /> : <FloatComponent {...newProps} />}
-      </Wraper>,
-      this.warper
-    )
-    this.parentSelect.appendChild(this.warper)
+  state = {
+    popups: {},
+    panels: {}
   }
 
-  open() {
-    this.warper.style.display = ''
-    document.body.style.overflow = 'hidden'
-  }
-
-  close() {
-    this.warper.style.display = 'none'
-    document.body.style.overflow = ''
-  }
-
-  remove() {
-    if(this.warper) {
-      this.warper.remove()
-      this.Store.remove(this.name)
-      unmountComponentAtNode(this.warper)
+  getHandles(type) {
+    const {[type]: floats} = this.state
+    return {
+      update: (name, data) => {
+        floats[name] = Object.assign(floats[name], {...data})
+        this.setState({[type]: {...floats}})
+      },
+      remove: name => {
+        delete floats[name]
+        this.setState({[type]: {...floats}})
+      },
+      open: (name, data = null) => {
+        floats[name] = {...data}
+        this.setState({[type]: {...floats}})
+      }
     }
+  }
+
+  getHandlesByName(type, name) {
+    const {[type]: floats} = this.state
+    return {
+      update: data => {
+        floats[name] = Object.assign(floats[name], {...data})
+        this.setState({[type]: {...floats}})
+      },
+      remove: () => {
+        delete floats[name]
+        this.setState({[type]: {...floats}})
+      },
+      open: (data = null) => {
+        floats[name] = {...data}
+        this.setState({[type]: {...floats}})
+      }
+    }
+  }
+
+  render() {
+    return (
+      <Provider value={{
+        popups: {...this.state.popups},
+        panels: {...this.state.panels},
+        getHandles: this.getHandles.bind(this),
+        getHandlesByName: this.getHandlesByName.bind(this),
+      }}>
+        {this.props.children}
+      </Provider>
+    )
   }
 }

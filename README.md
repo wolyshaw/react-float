@@ -1,20 +1,98 @@
 # react-float
 
 ```
-适用于弹出浮动层结构，例如弹窗、侧边栏
+适用于弹出浮动层结构，例如弹窗、侧边栏。仅用于过个人项目
 ```
 
-## 初始化
+## 原理
 
-#### 两种初始化方式
+由于使用了react [新版 context API](https://reactjs.org/docs/context.html#reactcreatecontext) 所以需要react 16.3 以上
 
-- 一、先在一处定义所有浮动层，然后创建实例。
+### 如何使用
 
+``` jsx
+<!-- app -->
+// ... react ...
+// ... redux ...
+// ... router ...
+import FloatProvider from 'react-float'
+
+render(
+  <Provider>
+    <Router>
+      <FloatProvider>
+        <App/>
+      </FloatProvider>
+    </Router>
+  </Provider>,
+  getElementById('element')
+)
+
+<!-- component -->
+import {Popup, Panel} from 'react-float'
+<Component>
+  this is component<br/>
+  <Popup name="testPopup" component={component}/>
+  <Panel name="testPopup" component={component}/>
+</Component>
 ```
-此方法可以按需加载，可以在一处集中定义后其他地方可以直接执行对应的方法（推荐）
-```
 
-- 二、直接引入对应的方法
+### 组件
 
+- FloatProvider
 
-具体实例可参考[https://wolyshaw.github.io/react-float/demo/](demo)
+  定义作用域，只有在FloatProvider组件下面才可以使用react-float其它组件
+
+- Popup
+
+  一个弹窗
+
+- Panel
+
+  一个侧边栏
+
+- withPopup
+
+  高阶组件，会将操作弹窗打开关闭更新方法添加至props中
+
+- withPanel
+
+  高阶组件，会将操作侧边栏打开关闭更新方法添加至props中
+
+### 操作API
+
+- Popup 组件下props
+
+  ``` javascript
+    close():void
+
+    关闭当前弹窗
+
+    update(data:Object):void
+
+    更新当前弹窗
+  ```
+
+- Panel 组件下props
+
+    ``` javascript
+    close():void
+
+    关闭当前侧边栏
+
+    update(data:Object):void
+
+    更新当前侧边栏
+  ```
+
+- withPopup
+
+  高阶组件，会将操作弹窗打开关闭更新方法添加至props中
+
+- withPanel
+
+  高阶组件，会将操作侧边栏打开关闭更新方法添加至props中
+
+### demo
+
+[在线demo]()
