@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import propTypes from 'prop-types'
 import context from './context'
 
 const { Provider } = context
 
-export default class Floats extends Component {
+export default class Floats extends PureComponent {
 
   static propTypes = {
-    children: propTypes.any
+    children: propTypes.any,
+    panel: propTypes.object,
+    popup: propTypes.object,
+  }
+
+  static defaultProps = {
+    panel: null,
+    popup: null
   }
 
   state = {
@@ -58,6 +65,8 @@ export default class Floats extends Component {
         panels: {...this.state.panels},
         getHandles: this.getHandles.bind(this),
         getHandlesByName: this.getHandlesByName.bind(this),
+        panel: this.props.panel,
+        popup: this.props.popup,
       }}>
         {this.props.children}
       </Provider>

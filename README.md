@@ -8,6 +8,11 @@
 
 由于使用了react [新版 context API](https://reactjs.org/docs/context.html#reactcreatecontext) 所以需要react 16.3 以上
 
+
+### demo
+
+[在线demo](https://8yw8287nq2.codesandbox.io/)
+
 ### 如何使用
 
 ``` jsx
@@ -92,7 +97,3 @@ import {Popup, Panel} from 'react-float'
 - withPanel
 
   高阶组件，会将操作侧边栏打开关闭更新方法添加至props中
-
-### demo
-
-[在线demo](https://8yw8287nq2.codesandbox.io/)

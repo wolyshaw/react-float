@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import propTypes from 'prop-types'
 import context from './context'
-import './index.css'
+import { getNeedKeys } from './utils'
+import './index.less'
 
 const { Consumer } = context
 
@@ -13,15 +14,17 @@ class PopupWraper extends Component {
     component: propTypes.any.isRequired,
     activeFloat: propTypes.object.isRequired,
     handles: propTypes.object.isRequired,
+    header: propTypes.any,
     closed: propTypes.func,
     title: propTypes.string,
     width: propTypes.string,
     mask: propTypes.bool,
-    maskClose: propTypes.bool
+    maskClose: propTypes.bool,
+    className: propTypes.string,
   }
 
   static defaultProps = {
-    className: 'react-float',
+    className: '',
     width: 'auto',
     mask: true,
     maskClose: true,
@@ -47,28 +50,27 @@ class PopupWraper extends Component {
     }
   }
 
-  onMaskClick = () => this.props.maskClose && (this.props.mask || this.props.activeFloat.mask) ? this.props.handles.remove() : null
+  onMaskClick = () => this.props.maskClose && this.props.mask ? this.props.handles.remove() : null
 
   clearEvent = e => e.stopPropagation()
 
   render() {
-    const {component: Component, title, width, handles, activeFloat, mask } = this.props
-    const hasMask = typeof activeFloat.mask !== 'undefined' ? activeFloat.mask :  mask
-    const actTit = activeFloat.title || title
+    const {component: Component, title, width, handles, activeFloat, mask, header: Header } = this.props
     return createPortal(
-      <div className={`react-float ${hasMask ? 'react-float-mask' : null}`}>
+      <div className={`react-float ${this.props.className} ${mask ? 'react-float-mask' : null}`}>
         <div className="react-float-container" onClick={this.onMaskClick}>
-          <div className="react-float-content" onClick={this.clearEvent} style={{width: activeFloat.width || width}}>
-            {actTit ? (
-              <div className="react-float-header">
-                <span>{actTit}</span>
-                <span onClick={ handles.remove }>关闭</span>
-              </div>
-            ) : null}
+          <div className="react-float-content" onClick={this.clearEvent} style={{width}}>
+            {Header ? <Header/> : (
+              title ? (
+                <div className="react-float-header">
+                  <span>{title}</span>
+                  <span onClick={ handles.remove }>关闭</span>
+                </div>
+              ) : null
+            )}
             <Component
-              {...activeFloat.data}
-              closeThisPopup={handles.remove}
-              updateThisPopup={handles.update}
+              {...activeFloat}
+              {...handles}
             />
           </div>
         </div>
@@ -86,18 +88,22 @@ export default class Popup extends Component {
 
   render() {
     const {name} = this.props
+    const transition = {
+      timeout: 200,
+      classNames: 'react-panel-fade'
+    }
     return (
       <Consumer>
         {context => {
           const {popups: floats} = context
           const activeFloat = floats[name]
+          const newProps = Object.assign({}, context.panel, this.props, getNeedKeys(activeFloat))
           return (
             <TransitionGroup component={null}>
               {activeFloat ? (
-                <CSSTransition timeout={300} classNames="react-panel-fade">
+                <CSSTransition {...Object.assign(transition, newProps.transition)}>
                   <PopupWraper
-                    {...this.props}
-                    context={context}
+                    {...newProps}
                     activeFloat={activeFloat}
                     handles={context.getHandlesByName('popups', name)}
                   />
