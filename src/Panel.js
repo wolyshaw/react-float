@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import propTypes from 'prop-types'
 import context from './context'
 import { getNeedKeys } from './utils'
-import './index.less'
+import './index.css'
 
 const { Consumer } = context
 
